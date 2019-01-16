@@ -33,6 +33,6 @@ long double interval(long double(*oper)(long double),long double low,long double
 
 int main() {
     // insert code here...
-    std::cout<<std::setiosflags(std::ios::fixed)<<std::setprecision(100)<<interval(operation,-1.0,1.0,1000000000)<<std::endl;
+    std::cout<<std::setiosflags(std::ios::fixed)<<std::setprecision(100)<<interval(operation,-1.0,1.0,100000000000)<<std::endl;
     return 0;
 }

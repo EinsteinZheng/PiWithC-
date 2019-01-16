@@ -7,9 +7,32 @@
 //
 
 #include <iostream>
+#include <iomanip>
+#include <math.h>
 
-int main(int argc, const char * argv[]) {
+long double operation(long double x)
+{
+    return 2*sqrt(1-x*x);
+}
+
+long double interval(long double(*oper)(long double),long double low,long double high,long double step)
+{
+    if(low>high)
+    {
+        std::swap(low,high);
+    }
+    long double width=(high-low)/step;
+    long double result=0.0,now=low;
+    for(int i=0;i<step;i++)
+    {
+        result+=oper(now)*width;
+        now+=width;
+    }
+    return result;
+}
+
+int main() {
     // insert code here...
-    std::cout << "Hello, World!\n";
+    std::cout<<std::setiosflags(std::ios::fixed)<<std::setprecision(100)<<interval(operation,-1.0,1.0,100000000)<<std::endl;
     return 0;
 }

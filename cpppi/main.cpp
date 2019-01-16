@@ -25,7 +25,7 @@ long double interval(long double(*oper)(long double),long double low,long double
     long double result=0.0,now=low;
     for(int i=0;i<step;i++)
     {
-        std::cout<<"now : "<<now<<std::endl<<std::endl;
+        std::cout<<"now : "<<std::setiosflags(std::ios::fixed)<<std::setprecision(100)<<now<<std::endl<<std::endl;
         result+=oper(now)*width;
         now+=width;
     }

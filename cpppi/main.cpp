@@ -15,7 +15,7 @@ long double operation(long double x)
     return 2*sqrt(1-x*x);
 }
 
-long double interval(long double(*oper)(long double),long double low,long double high,long double step)
+long double interval(long double(*oper)(long double),long double low,long double high,long long step)
 {
     if(low>high)
     {
@@ -23,9 +23,9 @@ long double interval(long double(*oper)(long double),long double low,long double
     }
     long double width=(high-low)/step;
     long double result=0.0,now=low;
-    for(int i=0;i<step;i++)
+    for(int i=0;now<high;i++)
     {
-        std::cout<<"now : "<<std::setiosflags(std::ios::fixed)<<std::setprecision(100)<<now<<std::endl<<std::endl;
+        //std::cout<<"now : "<<std::setiosflags(std::ios::fixed)<<std::setprecision(100)<<now<<std::endl<<std::endl;
         result+=oper(now)*width;
         now+=width;
     }
@@ -34,6 +34,6 @@ long double interval(long double(*oper)(long double),long double low,long double
 
 int main() {
     // insert code here...
-    std::cout<<std::setiosflags(std::ios::fixed)<<std::setprecision(100)<<interval(operation,-1.0,1.0,100000000000)<<std::endl;
+    std::cout<<std::setiosflags(std::ios::fixed)<<std::setprecision(11)<<interval(operation,-1.0,1.0,4000000000)<<std::endl;
     return 0;
 }

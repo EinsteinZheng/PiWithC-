@@ -561,15 +561,81 @@ num num::nomicm(num _2)
 num num::operator/(num _2)
 {
     num result,before("0");
-    int begin=this->_num[0]/_2._num[0];
+    double begin=(double)(this->_num[0])/(double)(_2._num[0]);
     result=num(std::to_string(begin));
     bool change=true;
     while(change)
     {
+        change=false;
         before=result;
         result=result*(num("2")-_2.nomicm(result));
+        for(int i=0;i<micro+1&&i<result._num.size()&&i<before._num.size();i++)
+        {
+            if(result._num[i]!=before._num[i])
+            {
+                change=true;
+                i=micro+2;
+            }
+        }
     }
-    return result;
+    if(result._num.size()>micro+1)
+    {
+        result._num.erase(result._num.begin()+micro+2, result._num.end());
+        if(*(result._num.end()-1)>=5)
+        {
+            ++(*(result._num.end()-2));
+        }
+        result._num.erase(result._num.end()-1);
+    }
+    bool retry=false,uz=true;
+    do
+    {
+        retry=false;
+        if(result._num[0]<0)
+        {
+            uz=false;
+        }
+        for(long i=this->_num.size()-1;i>=0;i--)
+        {
+            if(uz==true)
+            {
+                if(result._num[i]>=10&&i!=0)
+                {
+                    int now=0,up=0;
+                    now=result._num[i]%10;
+                    up=(result._num[i]-now)/10;
+                    result._num[i-1]+=up;
+                    result._num[i]=now;
+                    retry=true;
+                }
+                else if(result._num[i]<0&&i!=0)
+                {
+                    result._num[i-1]--;
+                    result._num[i]=10+result._num[i];
+                    retry=true;
+                }
+            }
+            else
+            {
+                if(result._num[i]<=-10&&i!=0)
+                {
+                    int now=0,up=0;
+                    now=-(-(result._num[i])%10);
+                    up=-(-(result._num[i])+now)/10;
+                    result._num[i-1]+=up;
+                    result._num[i]=now;
+                    retry=true;
+                }
+                else if(result._num[i]>0&&i!=0)
+                {
+                    result._num[i-1]++;
+                    result._num[i]=-10+result._num[i];
+                    retry=true;
+                }
+            }
+        }
+    }while(retry);
+    return (*this)*result;
 }
 
 num num::operator+=(num _2)
@@ -592,6 +658,6 @@ num num::operator*=(num _2)
 
 num num::operator/=(num _2)
 {
-    *this=*this+_2;
+    *this=*this/_2;
     return *this;
 }

@@ -11,14 +11,7 @@
 
 int main() {
     // insert code here...
-    std::string nu2str;
-    nu2str.push_back('1');
-    nu2str.push_back('.');
-    for(int i=0;i<15;i++)
-    {
-        nu2str.push_back('5');
-    }
-    num nu("-0.1"),nu2(nu2str);
-    nu+=nu2;
+    num nu("1"),nu2("30");
+    nu/=nu2;
     return 0;
 }

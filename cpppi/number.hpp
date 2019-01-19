@@ -23,7 +23,7 @@ class num
 {
 public:
     std::vector<int> _num;
-    static const long micro=1000000;
+    static const long micro=10;
 public:
     num();
     num(std::string&);

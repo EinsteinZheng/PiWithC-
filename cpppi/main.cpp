@@ -7,33 +7,18 @@
 //
 
 #include <iostream>
-#include <iomanip>
-#include <math.h>
-
-long double operation(long double x)
-{
-    return 2*sqrt(1-x*x);
-}
-
-long double interval(long double(*oper)(long double),long double low,long double high,long long step)
-{
-    if(low>high)
-    {
-        std::swap(low,high);
-    }
-    long double width=(high-low)/step;
-    long double result=0.0,now=low;
-    for(int i=0;now<high;i++)
-    {
-        //std::cout<<"now : "<<std::setiosflags(std::ios::fixed)<<std::setprecision(100)<<now<<std::endl<<std::endl;
-        result+=oper(now)*width;
-        now+=width;
-    }
-    return result;
-}
+#include "number.hpp"
 
 int main() {
     // insert code here...
-    std::cout<<std::setiosflags(std::ios::fixed)<<std::setprecision(11)<<interval(operation,-1.0,1.0,4000000000)<<std::endl;
+    std::string nu2str;
+    nu2str.push_back('1');
+    nu2str.push_back('.');
+    for(int i=0;i<15;i++)
+    {
+        nu2str.push_back('5');
+    }
+    num nu("-0.1"),nu2(nu2str);
+    nu+=nu2;
     return 0;
 }
